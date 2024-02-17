@@ -1,50 +1,6 @@
-import { useState } from "react";
-
-import Loading from "../../components/Loading/Loading";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { login } from "../../features/auth";
-import { useNavigate } from "react-router-dom";
-const Login = () => {
-  const navigate = useNavigate();
-  const state = useSelector((state) => state.authentication);
-  const dispatch = useDispatch();
-  console.log("state..........", state);
-  console.log(import.meta.env.VITE_API_BE_KEY);
-  const [usernameSignIn, setUsernameSignIn] = useState("");
-  const [passwordSignIn, setPasswordSignIn] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const handleSignInProcess = (e) => {
-    e.preventDefault();
-
-    setIsLoading(true);
-    let formData = new FormData();
-    formData.append("email", usernameSignIn);
-    formData.append("password", passwordSignIn);
-    axios
-      .post(`${import.meta.env.VITE_API_BE_KEY}/api/v1/auth/login`, formData)
-      .then((response) => {
-        // Xử lý dữ liệu phản hồi
-        setIsLoading(false);
-        navigate("/dashboard");
-        dispatch(
-          login({
-            // Pass payload as an object
-            id: response.data.data.id,
-            token: response.data.data.ACCESS_TOKEN,
-            roleCode: response.data.data.role,
-          })
-        );
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        // Xử lý lỗi
-        console.error("Error:", error);
-      });
-  };
+const Register = () => {
   return (
     <>
-      {isLoading && <Loading />}
       <div className="min-w-screen min-h-screen bg-gray-900 flex items-center justify-center px-5 py-5">
         <div
           className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-80% overflow-hidden"
@@ -257,18 +213,43 @@ const Login = () => {
               </svg>
             </div>
             <div className="w-full md:w-1/2 py-10 px-5 md:px-10">
-              <a
-                href="/"
-                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Back To Home
-              </a>
-
               <div className="text-center mb-10">
-                <h1 className="font-bold text-3xl text-gray-900">LOGIN</h1>
-                <p>Enter your information to log in</p>
+                <h1 className="font-bold text-3xl text-gray-900">REGISTER</h1>
+                <p>Enter your information to register</p>
               </div>
               <div>
+                <div className="flex -mx-3">
+                  <div className="w-1/2 px-3 mb-5">
+                    <label htmlFor="" className="text-xs font-semibold px-1">
+                      First name
+                    </label>
+                    <div className="flex">
+                      <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                        <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
+                      </div>
+                      <input
+                        type="text"
+                        className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                        placeholder="John"
+                      />
+                    </div>
+                  </div>
+                  <div className="w-1/2 px-3 mb-5">
+                    <label htmlFor="" className="text-xs font-semibold px-1">
+                      Last name
+                    </label>
+                    <div className="flex">
+                      <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                        <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
+                      </div>
+                      <input
+                        type="text"
+                        className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                        placeholder="Smith"
+                      />
+                    </div>
+                  </div>
+                </div>
                 <div className="flex -mx-3">
                   <div className="w-full px-3 mb-5">
                     <label htmlFor="" className="text-xs font-semibold px-1">
@@ -282,7 +263,6 @@ const Login = () => {
                         type="email"
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="johnsmith@example.com"
-                        onChange={(e) => setUsernameSignIn(e.target.value)}
                       />
                     </div>
                   </div>
@@ -300,18 +280,14 @@ const Login = () => {
                         type="password"
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="************"
-                        onChange={(e) => setPasswordSignIn(e.target.value)}
                       />
                     </div>
                   </div>
                 </div>
                 <div className="flex -mx-3">
                   <div className="w-full px-3 mb-5">
-                    <button
-                      className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
-                      onClick={handleSignInProcess}
-                    >
-                      Login
+                    <button className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
+                      REGISTER NOW
                     </button>
                   </div>
                 </div>
@@ -324,4 +300,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
