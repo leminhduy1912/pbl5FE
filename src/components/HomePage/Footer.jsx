@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer
-      className="container"
+      className="w-full pt-12"
       style={{
         backgroundImage:
           "linear-gradient(to bottom, #09203f 20%, #537895 100%)",

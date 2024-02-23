@@ -1,185 +1,77 @@
+// <div
+//   classNameName="container  bg-gray-50 flex items-center justify-center "
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+// >
+
 const Tetisinomial = () => {
+  const [listImagePromotion, setListImagePromotion] = useState([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_BE_KEY}/api/v1/promotion/image`)
+      .then((response) => {
+        // Xử lý dữ liệu phản hồi
+        setListImagePromotion(response.data.data.result);
+      })
+      .catch((error) => {
+        // Xử lý lỗi
+        console.error("Error:", error);
+      });
+  }, []);
+  const handleGetDetailPromotion = (promotionId) => {
+    console.log(promotionId);
+    axios
+      .get(
+        `${import.meta.env.VITE_API_BE_KEY}/api/v1/promotion?id=${promotionId}`
+      )
+      .then((response) => {
+        console.log("data promotion receive", response.data.data);
+        navigate("/promotion", {
+          state: { promotionData: response.data.data.result },
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
   return (
     <>
       <div
-        className="container  bg-gray-50 flex items-center justify-center "
+        className="h-[1050px] w-full  flex flex-col justify-items-center items-center"
         style={{
           backgroundImage: "linear-gradient(to top, #09203f 0%, #537895 100%)",
         }}
       >
-        <div className="w-full   px-5  md:py-24 text-gray-800">
-          <div className="w-full max-w-6xl mx-auto">
-            <div className="text-center max-w-xl mx-auto">
-              <h1 className="text-5xl md:text-6xl font-semibold mb-5  text-white">
-                What people are saying
-              </h1>
-
-              <div className="text-center mb-10">
-                <span className="inline-block w-1 h-1 rounded-full bg-indigo-500 ml-1"></span>
-                <span className="inline-block w-3 h-1 rounded-full bg-indigo-500 ml-1"></span>
-                <span className="inline-block w-40 h-1 rounded-full bg-indigo-500"></span>
-                <span className="inline-block w-3 h-1 rounded-full bg-indigo-500 ml-1"></span>
-                <span className="inline-block w-1 h-1 rounded-full bg-indigo-500 ml-1"></span>
-              </div>
-            </div>
-            <div className="-mx-3 md:flex items-start">
-              <div className="px-3 md:w-1/3">
-                <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
-                  <div className="w-full flex mb-4 items-center">
-                    <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
-                      <img src="https://i.pravatar.cc/100?img=1" alt="" />
-                    </div>
-                    <div className="flex-grow pl-3">
-                      <h6 className="font-bold text-sm uppercase text-gray-600">
-                        Kenzie Edgar.
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="w-full">
-                    <p className="text-sm leading-tight">
-                      <span className="text-lg leading-none italic font-bold text-gray-400 mr-1"></span>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Quos sunt ratione dolor exercitationem minima quas itaque
-                      saepe quasi architecto vel! Accusantium, vero sint
-                      recusandae cum tempora nemo commodi soluta deleniti.
-                      <span className="text-lg leading-none italic font-bold text-gray-400 ml-1"></span>
-                    </p>
+        <h3 className="mb-4 mt-4 text-4xl font-semibold text-white rounded-3xl  border-solid border-stone-50 p-5 border-2 w-[100]">
+          Khuyến mãi & Ưu đãi
+        </h3>
+        <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4 gap-4">
+          {listImagePromotion.length > 0 &&
+            listImagePromotion.map((item, index) => {
+              console.log("promotion", item);
+              return (
+                <div
+                  className="flex px-3 py-3"
+                  key={index}
+                  onClick={() => handleGetDetailPromotion(item.id)}
+                >
+                  <div className="max-w-sm rounded-3xl overflow-hidden shadow-lg">
+                    <img
+                      className="w-full"
+                      src={`http://localhost:8080/img/${item.path}`}
+                      alt="Sunset in the mountains"
+                    />
                   </div>
                 </div>
-                <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
-                  <div className="w-full flex mb-4 items-center">
-                    <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
-                      <img src="https://i.pravatar.cc/100?img=2" alt="" />
-                    </div>
-                    <div className="flex-grow pl-3">
-                      <h6 className="font-bold text-sm uppercase text-gray-600">
-                        Stevie Tifft.
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="w-full">
-                    <p className="text-sm leading-tight">
-                      <span className="text-lg leading-none italic font-bold text-gray-400 mr-1"></span>
-                      Lorem ipsum, dolor sit amet, consectetur adipisicing elit.
-                      Dolore quod necessitatibus, labore sapiente, est,
-                      dignissimos ullam error ipsam sint quam tempora vel.
-                      <span className="text-lg leading-none italic font-bold text-gray-400 ml-1"></span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="px-3 md:w-1/3">
-                <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
-                  <div className="w-full flex mb-4 items-center">
-                    <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
-                      <img src="https://i.pravatar.cc/100?img=3" alt="" />
-                    </div>
-                    <div className="flex-grow pl-3">
-                      <h6 className="font-bold text-sm uppercase text-gray-600">
-                        Tommie Ewart.
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="w-full">
-                    <p className="text-sm leading-tight">
-                      <span className="text-lg leading-none italic font-bold text-gray-400 mr-1"></span>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Vitae, obcaecati ullam excepturi dicta error deleniti
-                      sequi.
-                      <span className="text-lg leading-none italic font-bold text-gray-400 ml-1"></span>
-                    </p>
-                  </div>
-                </div>
-                <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
-                  <div className="w-full flex mb-4 items-center">
-                    <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
-                      <img src="https://i.pravatar.cc/100?img=4" alt="" />
-                    </div>
-                    <div className="flex-grow pl-3">
-                      <h6 className="font-bold text-sm uppercase text-gray-600">
-                        Charlie Howse.
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="w-full">
-                    <p className="text-sm leading-tight">
-                      <span className="text-lg leading-none italic font-bold text-gray-400 mr-1"></span>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Architecto inventore voluptatum nostrum atque, corrupti,
-                      vitae esse id accusamus dignissimos neque reprehenderit
-                      natus, hic sequi itaque dicta nisi voluptatem! Culpa,
-                      iusto.
-                      <span className="text-lg leading-none italic font-bold text-gray-400 ml-1"></span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="px-3 md:w-1/3">
-                <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
-                  <div className="w-full flex mb-4 items-center">
-                    <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
-                      <img src="https://i.pravatar.cc/100?img=5" alt="" />
-                    </div>
-                    <div className="flex-grow pl-3">
-                      <h6 className="font-bold text-sm uppercase text-gray-600">
-                        Nevada Herbertson.
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="w-full">
-                    <p className="text-sm leading-tight">
-                      <span className="text-lg leading-none italic font-bold text-gray-400 mr-1"></span>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Nobis, voluptatem porro obcaecati dicta, quibusdam sunt
-                      ipsum, laboriosam nostrum facere exercitationem pariatur
-                      deserunt tempora molestiae assumenda nesciunt alias eius?
-                      Illo, autem!
-                      <span className="text-lg leading-none italic font-bold text-gray-400 ml-1"></span>
-                    </p>
-                  </div>
-                </div>
-                <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6">
-                  <div className="w-full flex mb-4 items-center">
-                    <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
-                      <img src="https://i.pravatar.cc/100?img=6" alt="" />
-                    </div>
-                    <div className="flex-grow pl-3">
-                      <h6 className="font-bold text-sm uppercase text-gray-600">
-                        Kris Stanton.
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="w-full">
-                    <p className="text-sm leading-tight">
-                      <span className="text-lg leading-none italic font-bold text-gray-400 mr-1"></span>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Voluptatem iusto, explicabo, cupiditate quas totam!
-                      <span className="text-lg leading-none italic font-bold text-gray-400 ml-1"></span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
-        <div>
-          <a
-            title="Buy me a beer"
-            target="_blank"
-            className="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12"
-          >
-            <img
-              className="object-cover object-center w-full h-full rounded-full"
-              src="https://i.pinimg.com/originals/60/fd/e8/60fde811b6be57094e0abc69d9c2622a.jpg"
-            />
-          </a>
+              );
+            })}
         </div>
       </div>
     </>
-    // </div>
   );
 };
 

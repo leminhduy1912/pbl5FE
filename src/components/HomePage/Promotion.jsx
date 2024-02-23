@@ -52,12 +52,12 @@ const Promotion = () => {
         Promotion
       </h3> */}
       <div
-        className="container"
+        className="h-[1000px] w-full flex items-center justify-center"
         style={{
           backgroundImage: "linear-gradient(to top, #09203f 0%, #537895 100%)",
         }}
       >
-        <div className="max-w-[1000px] h-[450px] w-full m-auto py-4 px-4 relative group ">
+        <div className="max-w-[1400px] h-[700px] w-full m-auto py-4 px-4 relative group ">
           <div
             style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
             className="w-full h-full rounded-2xl bg-center bg-cover duration-500"

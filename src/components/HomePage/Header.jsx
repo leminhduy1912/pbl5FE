@@ -1,11 +1,16 @@
 import { useState } from "react";
-
+import { useSelector } from "react-redux";
+import { CiUser } from "react-icons/ci";
 const Header = () => {
   const [state, setState] = useState(false);
+  const { token, roleCode, id, isLogin, email } = useSelector(
+    (state) => state.authentication
+  );
+  console.log("state.................", token, roleCode, id, isLogin, email);
 
   // Replace javascript:void(0) paths with your paths
   const navigation = [
-    { title: "Features", path: "javascript:void(0)" },
+    { title: "Home", path: "/" },
     { title: "Integrations", path: "javascript:void(0)" },
     { title: "Customers", path: "javascript:void(0)" },
     { title: "Pricing", path: "javascript:void(0)" },
@@ -82,24 +87,31 @@ const Header = () => {
               );
             })}
             <span className="hidden w-px h-6 bg-gray-300 md:block"></span>
-            <div className="space-y-3 items-center gap-x-6 md:flex md:space-y-0">
-              <li>
-                <a
-                  href="javascript:void(0)"
-                  className=" text-xl block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
-                >
-                  Log in
-                </a>
-              </li>
-              <li>
-                <a
-                  href="javascript:void(0)"
-                  className="text-xl block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline"
-                >
-                  Sign in
-                </a>
-              </li>
-            </div>
+            {isLogin ? (
+              <div className="flex justify-center items-center gap-3">
+                <span className="text-xl font-thin">{email}</span>
+                <CiUser size={30} />
+              </div>
+            ) : (
+              <div className="space-y-3 items-center gap-x-6 md:flex md:space-y-0">
+                <li>
+                  <a
+                    href="/login"
+                    className=" text-xl block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
+                  >
+                    Log in
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/register"
+                    className="text-xl block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline"
+                  >
+                    Sign in
+                  </a>
+                </li>
+              </div>
+            )}
           </ul>
         </div>
       </div>
