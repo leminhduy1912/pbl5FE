@@ -3,10 +3,15 @@ import { FreeMode, Pagination } from "swiper/modules";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import AOS from "aos";
+import "aos/dist/aos.css"; // Import AOS styles
 const Slider = () => {
   const [listImage, setListImage] = useState([]);
   const navigate = useNavigate();
+  AOS.init({
+    duration: 2000,
+    once: false,
+  });
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_API_BE_KEY}/api/v1/movie/image`)
@@ -71,6 +76,7 @@ const Slider = () => {
                   onClick={() => handleGetDetailInfoMovie(item.id)}
                 >
                   <div
+                    data-aos="flip-left"
                     className="flex flex-col gap-6 mb-20 group relative shadow-lg 
                   text-white rounded-xl px-6 py-8 h-[300px] w-[215px] lg:h-[500px] lg:w-[350px] overflow-hidden cursor-pointer"
                   >
