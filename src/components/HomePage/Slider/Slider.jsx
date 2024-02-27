@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import AOS styles
+import { PulseLoader } from "react-spinners";
 const Slider = () => {
   const [listImage, setListImage] = useState([]);
   const navigate = useNavigate();
@@ -68,32 +69,33 @@ const Slider = () => {
           modules={[FreeMode, Pagination]}
           className="max-w-[90%] lg:max-w-[80%]"
         >
-          {listImage.length > 0 &&
-            listImage.map((item, index) => {
-              return (
-                <SwiperSlide
-                  key={index}
-                  onClick={() => handleGetDetailInfoMovie(item.id)}
+          {listImage.length > 0 ? (
+            listImage.map((item, index) => (
+              <SwiperSlide
+                key={index}
+                onClick={() => handleGetDetailInfoMovie(item.id)}
+              >
+                <div
+                  data-aos="flip-left"
+                  className="flex flex-col gap-6 mb-20 group relative shadow-lg 
+            text-white rounded-xl px-6 py-8 h-[300px] w-[215px] lg:h-[500px] lg:w-[350px] overflow-hidden cursor-pointer"
                 >
                   <div
-                    data-aos="flip-left"
-                    className="flex flex-col gap-6 mb-20 group relative shadow-lg 
-                  text-white rounded-xl px-6 py-8 h-[300px] w-[215px] lg:h-[500px] lg:w-[350px] overflow-hidden cursor-pointer"
-                  >
-                    <div
-                      className="absolute inset-0 bg-cover bg-center"
-                      style={{
-                        backgroundImage: `url(${
-                          "http://localhost:8080/img/" + item.path
-                        })`,
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-black opacity-10 group-hover:opacity-50" />
-                    <div className="relative flex flex-col gap-3"></div>
-                  </div>
-                </SwiperSlide>
-              );
-            })}
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                      backgroundImage: `url(${
+                        "http://localhost:8080/img/" + item.path
+                      })`,
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-black opacity-10 group-hover:opacity-50" />
+                  <div className="relative flex flex-col gap-3"></div>
+                </div>
+              </SwiperSlide>
+            ))
+          ) : (
+            <PulseLoader color="#36d7b7" />
+          )}
         </Swiper>
       </div>
     </>
