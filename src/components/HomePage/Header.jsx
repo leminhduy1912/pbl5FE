@@ -6,7 +6,6 @@ const Header = () => {
   const { token, roleCode, id, isLogin, email } = useSelector(
     (state) => state.authentication
   );
-  console.log("state.................", token, roleCode, id, isLogin, email);
 
   // Replace javascript:void(0) paths with your paths
   const navigation = [
