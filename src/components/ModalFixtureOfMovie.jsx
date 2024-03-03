@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 import { CiCircleRemove } from "react-icons/ci";
 import { motion, AnimatePresence } from "framer-motion";
 import Loading from "./Loading/Loading";
+import { useNavigate } from "react-router-dom";
+
 const ModalFixtureOfMovie = (props) => {
   const { image, movieId, onClose, isOpen } = props;
 
   console.log("movieId", movieId);
+  const navigate = useNavigate();
   const [time, setTime] = useState("26-2-2024");
   const [listTime, setListTime] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,8 +48,11 @@ const ModalFixtureOfMovie = (props) => {
     console.log("day", item);
     setSelectedDay(index); // Đặt ngày được chọn
     setTime(item.day + "-" + item.month + "-" + item.year);
-    console.log("time", time);
   };
+  const handleGetSeatByShowTimeId = (item) => {
+    navigate(`/seat/showTimeId=${item.id}`);
+  };
+
   return (
     <>
       {isLoading && <Loading />}
@@ -124,6 +130,9 @@ const ModalFixtureOfMovie = (props) => {
                           <div
                             className="w-[140px] h-[80px] bg-white shadow-xl border-2 border-regal-blue rounded-2xl flex flex-col justify-center items-center gap-2 hover:shadow-regal-blue cursor-pointer pb-4"
                             key={index}
+                            onClick={() => {
+                              handleGetSeatByShowTimeId(item);
+                            }}
                           >
                             <div className="flex flex-row items-center justify-center gap-2">
                               <div className="flex flex-row items-center justify-center">

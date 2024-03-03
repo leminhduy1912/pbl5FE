@@ -25,20 +25,18 @@ const Promotion = () => {
       });
   }, []);
   const handleGetDetailPromotion = (promotionId) => {
-    console.log(promotionId);
-    axios
-      .get(
-        `${import.meta.env.VITE_API_BE_KEY}/api/v1/promotion?id=${promotionId}`
-      )
-      .then((response) => {
-        console.log("data promotion receive", response.data.data);
-        navigate("/promotion", {
-          state: { promotionData: response.data.data.result },
-        });
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    navigate(`/promotion/promotionId=${promotionId}`);
+    // axios
+    //   .get(
+    //     `${import.meta.env.VITE_API_BE_KEY}/api/v1/promotion?id=${promotionId}`
+    //   )
+    //   .then((response) => {
+    //     console.log("data promotion receive", response.data.data);
+    //     navigate(`/promotion/promotionId=${response.data.data.result.id}`);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
   };
   return (
     <>

@@ -11,14 +11,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/detail" element={<MovieDetailPage />} />
-        <Route path="/promotion" element={<PromotionDetailPage />} />
-        <Route path="/seat" element={<SeatOrderPage />} />
+        <Route path="/movie-detail/:movieId" element={<MovieDetailPage />} />
+        <Route
+          path="/promotion/:promotionId"
+          element={<PromotionDetailPage />}
+        />
+        <Route path="/seat/:showTimeId" element={<SeatOrderPage />} />
       </Routes>
     </BrowserRouter>
   );

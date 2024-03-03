@@ -30,9 +30,7 @@ const Slider = () => {
       .get(`${import.meta.env.VITE_API_BE_KEY}/api/v1/movie?id=${movieId}`)
       .then((response) => {
         console.log(response.data.data);
-        navigate("/detail", {
-          state: { movieData: response.data.data.result },
-        });
+        navigate(`/movie-detail/movieId=${response.data.data.result.id}`);
       })
       .catch((error) => {
         // Xử lý lỗi
@@ -76,12 +74,13 @@ const Slider = () => {
                 onClick={() => handleGetDetailInfoMovie(item.id)}
               >
                 <div
-                  data-aos="flip-left"
+                  // data-aos="flip-left"
                   className="flex flex-col gap-6 mb-20 group relative shadow-lg 
             text-white rounded-xl px-6 py-8 h-[300px] w-[215px] lg:h-[500px] lg:w-[350px] overflow-hidden cursor-pointer"
                 >
                   <div
                     className="absolute inset-0 bg-cover bg-center"
+                    data-aos="fade-out"
                     style={{
                       backgroundImage: `url(${
                         "http://localhost:8080/img/" + item.path
