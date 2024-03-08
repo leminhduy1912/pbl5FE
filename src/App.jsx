@@ -6,6 +6,7 @@ import PromotionDetailPage from "./pages/PromotionDetailPage";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import SeatOrderPage from "./pages/SeatOrderPage";
+import Receipt from "./components/Receipt";
 
 function App() {
   return (
@@ -19,7 +20,12 @@ function App() {
           path="/promotion/:promotionId"
           element={<PromotionDetailPage />}
         />
-        <Route path="/seat/:showTimeId" element={<SeatOrderPage />} />
+        <Route
+          path="/seat/:showTimeId/:theaterId"
+          element={<SeatOrderPage />}
+        />
+
+        <Route path="/receipt" element={<Receipt />} />
       </Routes>
     </BrowserRouter>
   );

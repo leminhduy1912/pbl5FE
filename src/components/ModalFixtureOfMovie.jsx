@@ -49,8 +49,14 @@ const ModalFixtureOfMovie = (props) => {
     setSelectedDay(index); // Đặt ngày được chọn
     setTime(item.day + "-" + item.month + "-" + item.year);
   };
+
   const handleGetSeatByShowTimeId = (item) => {
-    navigate(`/seat/showTimeId=${item.id}`);
+    const inforOfShowTime = {
+      movieName: item.movieName,
+      time: item.timeEnd + " - " + item.timeStart,
+      theaterName: item.theaterName,
+    };
+    navigate(`/seat/${item.id}/${item.theaterId}`, { state: inforOfShowTime });
   };
 
   return (

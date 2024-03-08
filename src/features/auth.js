@@ -12,7 +12,7 @@ export const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       // Change payload to action
-      console.log("payload..........", action.payload);
+
       const { token, roleCode, id, isLogin, email } = action.payload; // Destructure payload
       state.token = token;
       state.roleCode = roleCode;
